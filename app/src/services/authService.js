@@ -4,7 +4,7 @@ define(['app'], function(app) {
     var AuthService = function($http, $window, API) {
         this.$http = $http;
         this.$window = $window;
-        this.uri = API;
+        this.uri = API + '/auth';
     };
 
     AuthService.prototype.register = function(user) {

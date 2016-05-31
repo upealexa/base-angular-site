@@ -7,14 +7,17 @@ define([
         return {
             restrict: 'E',
             replace: true,
-            scope: {
-                logged: '='
-            },
             templateUrl: 'src/widgets/navbar/navbar.widget.tpl.html',
-            controller: ['$scope', '$window', 'authService', function($scope, $window, authService) {
-                $scope.logged = authService.isLoggedIn;
-                $scope.currentUser = authService.currentUser;
-                $scope.logOut = authService.logOut;
+            controller: ['$scope', 'authService', function($scope, authService) {
+                $scope.logged = function() {
+                    return authService.isLoggedIn();
+                };
+                $scope.currentUser = function() {
+                    return authService.currentUser();
+                };
+                $scope.logOut = function() {
+                    authService.logOut();
+                };
             }]
         };
 
