@@ -1,0 +1,23 @@
+{
+  "name": "base-angular-site",
+  "description": "\"# base-angular-site\"",
+  "main": "index.js",
+  "authors": [
+    "upealexa <alexandre.pereira@alpersoft.com.br>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/upealexa/base-angular-site",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-route": "~1.5.6",
+    "bootstrap-sass": "bootstrap-sass-official#^3.3.6"
+  }
+}
