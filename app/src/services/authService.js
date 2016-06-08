@@ -1,10 +1,11 @@
 define(['app'], function(app) {
     'use strict';
 
-    var AuthService = function($http, $window, API) {
+    var AuthService = function($http, $window, API, $state) {
         this.$http = $http;
         this.$window = $window;
         this.uri = API + '/auth';
+        this.$state = $state;
     };
 
     AuthService.prototype.register = function(user) {
@@ -21,8 +22,25 @@ define(['app'], function(app) {
         });
     };
 
+    AuthService.prototype.facebookLogIn = function() {
+
+        this.$window.location = this.$window.location.protocol + "//" +
+            this.$window.location.hostname + ":3000" +
+            this.$window.location.pathname +
+            "auth/facebooklogin";
+
+    };
+
     AuthService.prototype.logOut = function() {
         this.$window.localStorage.removeItem('base-token');
+        this.$state.go('login');
+    };
+
+    AuthService.prototype.recoverPassword = function(email) {
+        var svc = this;
+        return this.$http.post(this.uri + '/recoverPassword', {email: email}).success(function(data) {
+            //svc.saveToken(data.token);
+        });
     };
 
     AuthService.prototype.isLoggedIn = function() {
@@ -54,7 +72,7 @@ define(['app'], function(app) {
         return this.$window.localStorage['base-token'];
     };
 
-    AuthService.$inject = ['$http', '$window', 'API'];
+    AuthService.$inject = ['$http', '$window', 'API', '$state'];
 
     app.service('authService', AuthService);
 });

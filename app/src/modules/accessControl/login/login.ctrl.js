@@ -2,9 +2,12 @@ define([
     'app'
 ], function(app) {
 
-    function LoginController($state, authService) {
+    function LoginController($state, $translatePartialLoader, $translate, authService) {
         this.$state = $state;
         this.authService = authService;
+
+        $translatePartialLoader.addPart('auth');
+        $translate.refresh();
 
         this.user = {
             username: '',
@@ -17,14 +20,15 @@ define([
     LoginController.prototype.logIn = function() {
         ctrl = this;
 
-        this.authService.logIn(this.user).error(function(error) {
+        this.myPromise = this.authService.logIn(this.user).error(function(error) {
             ctrl.error = error;
         }).then(function() {
             ctrl.$state.go('home');
         });
+        return this.myPromise;
     };
 
-    LoginController.$inject = ['$state', 'authService'];
+    LoginController.$inject = ['$state', '$translatePartialLoader', '$translate', 'authService'];
 
     app.controller('loginController', LoginController);
 
@@ -34,7 +38,7 @@ define([
             $stateProvider
                 .state('login', {
                     url: '/login',
-                    templateUrl: 'src/modules/login/login.tpl.html',
+                    templateUrl: 'src/modules/accessControl/login/login.tpl.html',
                     controller: 'loginController',
                     controllerAs: 'vm',
                     onEnter: ['$state', 'authService', function($state, authService) {

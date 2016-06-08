@@ -1,0 +1,11 @@
+<div class="page-header">
+    <h1>{{'Base' | translate }}</h1>
+</div>
+
+<div ng-show="vm.error" class="alert alert-danger row">
+    <span>{{ vm.error.message }}</span>
+</div>
+
+<div cg-busy="vm.myPromise"></div>
+
+<img src="../../../images/facebook.png">

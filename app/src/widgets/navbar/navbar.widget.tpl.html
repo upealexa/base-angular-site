@@ -1,8 +1,12 @@
 <nav class="navbar navbar-default pull-right">
     <ul class="nav navbar-nav">
         <li ng-show="logged()"><a>{{ currentUser() }}</a></li>
-        <li ng-show="logged()"><a href="" ng-click="logOut()">Log Out</a></li>
-        <li ng-hide="logged()"><a href="/#/login">Log In</a></li>
-        <li ng-hide="logged()"><a href="/#/register">Register</a></li>
+        <li ng-show="logged()"><a href="" ng-click="logOut()">{{'Log Out' | translate }}</a></li>
+        <li ng-hide="logged()"><a href="/#/facebook_login"><img src="../../../images/facebook.png" width="20" ng-attr-title="{{'facebook_login' | translate}}"/></a></li>
+        <li ng-hide="logged()"><a href="/#/login">{{'Log In' | translate }}</a></li>
+        <li ng-hide="logged()"><a href="/#/register">{{'Register' | translate }}</a></li>
+        <li ng-hide="logged()"><a href="/#/recover_password">{{'Forgot your password?' | translate }}</a></li>
+        <li ><a href="" ng-click="useTranslation('pt-br')">pt-br</a></li>
+        <li ><a href="" ng-click="useTranslation('en')">en</a></li>
     </ul>
 </nav>

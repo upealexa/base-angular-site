@@ -1,0 +1,27 @@
+<div class="page-header">
+    <h1>{{'Base' | translate }}</h1>
+</div>
+
+<div ng-show="vm.error" class="alert alert-danger row">
+    <span>{{ vm.error.message }}</span>
+</div>
+
+<div cg-busy="vm.myPromise"></div>
+
+<form name="loginForm" ng-submit="vm.logIn()" style="margin-top:30px;" novalidate>
+    <h3>{{'Log In' | translate }}</h3>
+
+    <div class="form-group" ng-class="{ 'has-error': loginForm.userName.$touched && loginForm.userName.$invalid }">
+        <input name="userName" type="text" class="form-control" placeholder="{{'Username' | translate }}" ng-model="vm.user.username" required></input>
+        <div ng-messages="loginForm.userName.$error" ng-show="loginForm.userName.$touched">
+            <p class="has-error" ng-message="required">{{"User name is required" | translate}}.</p>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
+        <input name="password" type="password" class="form-control" placeholder="{{'Password' | translate }}" ng-model="vm.user.password" required></input>
+        <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched">
+            <p class="has-error" ng-message="required">{{"Password is required" | translate}}.</p>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid">{{'Log In' | translate }}</button>
+</form>

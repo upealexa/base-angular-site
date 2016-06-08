@@ -2,12 +2,16 @@ define([
     'app'
 ], function(app) {
 
-    function RegisterController($state, authService) {
+    function RegisterController($state, $translatePartialLoader, $translate, authService) {
         this.$state = $state;
         this.authService = authService;
 
+        $translatePartialLoader.addPart('auth');
+        $translate.refresh();
+
         this.user = {
             username: '',
+            email: '',
             password: ''
         };
 
@@ -17,14 +21,16 @@ define([
     RegisterController.prototype.register = function() {
         ctrl = this;
 
-        this.authService.register(this.user).error(function(error) {
+        this.myPromise = this.authService.register(this.user).error(function(error) {
             ctrl.error = error;
         }).then(function() {
             ctrl.$state.go('home');
         });
+
+        return this.myPromise;
     };
 
-    RegisterController.$inject = ['$state', 'authService'];
+    RegisterController.$inject = ['$state', '$translatePartialLoader', '$translate', 'authService'];
 
     app.controller('registerController', RegisterController);
 
@@ -34,7 +40,7 @@ define([
             $stateProvider
                 .state('register', {
                     url: '/register',
-                    templateUrl: 'src/modules/register/register.tpl.html',
+                    templateUrl: 'src/modules/accessControl/register/register.tpl.html',
                     controller: 'registerController',
                     controllerAs: 'vm',
                     onEnter: ['$state', 'authService', function($state, authService) {
