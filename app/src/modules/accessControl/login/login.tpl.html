@@ -3,7 +3,7 @@
 </div>
 
 <div ng-show="vm.error" class="alert alert-danger row">
-    <span>{{ vm.error.message }}</span>
+    <span>{{ vm.error.message | translate}}</span>
 </div>
 
 <div cg-busy="vm.myPromise"></div>
@@ -23,5 +23,19 @@
             <p class="has-error" ng-message="required">{{"Password is required" | translate}}.</p>
         </div>
     </div>
+    <p ng-hide="logged()"><a href="/#/recover_password">{{'Forgot your password?' | translate }}</a></p>
     <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid">{{'Log In' | translate }}</button>
+
+    <p></p>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{'Social Log in' | translate }}
+        </div>
+        <div class="panel-body">
+            <a href="/#/facebook_login" class="btn btn-block btn-social btn-facebook">
+                <i class="fa fa-facebook"></i> {{'Sign in with Facebook' | translate }}
+            </a>
+        </div>
+    </div>
+
 </form>

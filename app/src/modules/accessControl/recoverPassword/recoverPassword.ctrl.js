@@ -19,10 +19,13 @@ define([
 
     RecoverPasswordController.prototype.recoverPassword = function() {
         ctrl = this;
+        this.error = "";
+        this.msg = "";
+
         this.myPromise = this.authService.recoverPassword(this.user.email).error(function(error) {
             ctrl.error = error;
-        }).then(function() {
-          ctrl.msg = "Password sent";
+        }).then(function(data) {
+          ctrl.msg = data.data.msg;
         });
 
         return this.myPromise;

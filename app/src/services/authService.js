@@ -38,8 +38,20 @@ define(['app'], function(app) {
 
     AuthService.prototype.recoverPassword = function(email) {
         var svc = this;
-        return this.$http.post(this.uri + '/recoverPassword', {email: email}).success(function(data) {
-            //svc.saveToken(data.token);
+        return this.$http.post(this.uri + '/recoverPassword', {
+            email: email
+        }).success(function(data) {});
+    };
+
+    AuthService.prototype.changePassword = function(email) {
+        var svc = this;
+        return this.$http.post(this.uri + '/changePassword', {
+            email: email
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + this.getToken()
+            }
+        }).success(function(data) {
         });
     };
 
@@ -59,7 +71,7 @@ define(['app'], function(app) {
         if (this.isLoggedIn()) {
             var token = this.getToken();
             var payload = JSON.parse(this.$window.atob(token.split('.')[1]));
-
+           
             return payload.username;
         }
     };
